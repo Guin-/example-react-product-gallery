@@ -1,11 +1,53 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-import logo from './logo.svg';
 import * as requests from './requests';
 import Header from './Header';
+import ProductContainer from './components/productContainer';
 
 export default function App() {
+  const [categories, setCategories] = useState([]);
+  const [activeCategoryId, setActiveCategoryId] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [activeProduct, setActiveProduct] = useState({});
+
+  useEffect(
+    () => {
+      requests.getCategories().then(categories => {
+        setCategories(categories);
+        setActiveCategoryId(categories[0].id);
+      });
+    },
+    [categories]
+  );
+
+  useEffect(
+    () => {
+      requests.getProducts({categoryId: activeCategoryId}).then(products => {
+        setProducts(products);
+      });
+    },
+    [activeCategoryId]
+  );
+
+  const {name: categoryName} =
+    categories.find(({id}) => id === activeCategoryId) || {};
+
+  return (
+    <div className="product-listing">
+      <Header />
+      <ProductContainer
+        categories={categories}
+        products={products}
+        categoryName={categoryName}
+        setActiveCategoryId={setActiveCategoryId}
+      />
+    </div>
+  );
+}
+
+/*
   // Here as an example to get you started with requests.js
+
   React.useEffect(() => {
     (async () => {
       const categories = await requests.getCategories();
@@ -18,38 +60,4 @@ export default function App() {
       console.log('Example request: product', product);
     })();
   }, []);
-
-  return (
-    <div className="product-listing">
-      <Header />
-      <section className="product-container">
-        <div className="filter">
-          <h3>All Categories</h3>
-          <div className="categories">
-            <ul>
-              <li>Robots</li>
-              <li>Monsters</li>
-              <li>Kittens</li>
-            </ul>
-          </div>
-          <div className="price-filter">
-            <form>
-              <label>Min</label>
-              <input />
-              <label>Max</label>
-              <input />
-              <button>Go</button>
-            </form>
-          </div>
-        </div>
-        <div className="product-list">
-          <h2>Product Category</h2>
-          <ul>
-            <li>Product 1</li>
-            <li>Product 2</li>
-          </ul>
-        </div>
-      </section>
-    </div>
-  );
-}
+*/
