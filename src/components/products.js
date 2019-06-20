@@ -5,7 +5,11 @@ export default function Products({products, activeCategoryId, categoryName}) {
     <div className="product-list">
       <h2>{categoryName}</h2>
       <ul>
-        {products.map(product => <li key={product.id}>{product.name}</li>)}
+        {products.map(product => (
+          <li key={product.id}>
+            {product.name} {product.price}
+          </li>
+        ))}
       </ul>
     </div>
   );
