@@ -8,6 +8,7 @@ export default function ProductContainer({
   categories,
   products,
   setActiveCategoryId,
+  setPrices,
   categoryName,
 }) {
   return (
@@ -17,7 +18,7 @@ export default function ProductContainer({
           categories={categories}
           setActiveCategoryId={setActiveCategoryId}
         />
-        <PriceFilter />
+        <PriceFilter setPrices={setPrices} />
       </div>
       <Products products={products} categoryName={categoryName} />
     </section>

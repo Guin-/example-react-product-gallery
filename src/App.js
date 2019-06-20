@@ -8,6 +8,7 @@ export default function App() {
   const [categories, setCategories] = useState([]);
   const [activeCategoryId, setActiveCategoryId] = useState(0);
   const [products, setProducts] = useState([]);
+  const [prices, setPrices] = useState({min: null, max: null});
   const [activeProduct, setActiveProduct] = useState({});
 
   useEffect(
@@ -22,11 +23,17 @@ export default function App() {
 
   useEffect(
     () => {
-      requests.getProducts({categoryId: activeCategoryId}).then(products => {
-        setProducts(products);
-      });
+      requests
+        .getProducts({
+          categoryId: activeCategoryId,
+          minPrice: prices.min,
+          maxPrice: prices.max,
+        })
+        .then(products => {
+          setProducts(products);
+        });
     },
-    [activeCategoryId]
+    [activeCategoryId, prices]
   );
 
   const {name: categoryName} =
@@ -40,6 +47,7 @@ export default function App() {
         products={products}
         categoryName={categoryName}
         setActiveCategoryId={setActiveCategoryId}
+        setPrices={setPrices}
       />
     </div>
   );
