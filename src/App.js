@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import * as requests from './requests';
-import Header from './Header';
-import ProductContainer from './components/productContainer';
+import Header from './components/Header';
+import ProductContainer from './components/ProductContainer';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
@@ -10,6 +10,7 @@ export default function App() {
   const [products, setProducts] = useState([]);
   const [prices, setPrices] = useState({min: null, max: null});
   const [activeProduct, setActiveProduct] = useState({});
+  const [searchText, setSearchText] = useState('');
 
   useEffect(
     () => {
@@ -28,12 +29,13 @@ export default function App() {
           categoryId: activeCategoryId,
           minPrice: prices.min,
           maxPrice: prices.max,
+          searchText,
         })
         .then(products => {
           setProducts(products);
         });
     },
-    [activeCategoryId, prices]
+    [activeCategoryId, prices, searchText]
   );
 
   const {name: categoryName} =
@@ -41,7 +43,7 @@ export default function App() {
 
   return (
     <div className="product-listing">
-      <Header />
+      <Header setSearchText={setSearchText} />
       <ProductContainer
         categories={categories}
         products={products}
