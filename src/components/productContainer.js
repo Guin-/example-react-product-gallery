@@ -1,7 +1,7 @@
 import React from 'react';
-import Categories from './categories';
-import Products from './products';
-import PriceFilter from './priceFilter';
+import Categories from './Categories';
+import Products from './Products';
+import PriceFilter from './PriceFilter';
 import * as requests from '../requests';
 
 export default function ProductContainer({
