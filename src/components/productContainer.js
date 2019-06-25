@@ -9,6 +9,8 @@ export default function ProductContainer({
   products,
   setActiveCategoryId,
   setPrices,
+  setActiveProductId,
+  setModalOpen,
   categoryName,
 }) {
   return (
@@ -20,7 +22,12 @@ export default function ProductContainer({
         />
         <PriceFilter setPrices={setPrices} />
       </div>
-      <Products products={products} categoryName={categoryName} />
+      <Products
+        products={products}
+        categoryName={categoryName}
+        setActiveProductId={setActiveProductId}
+        setModalOpen={setModalOpen}
+      />
     </section>
   );
 }

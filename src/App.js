@@ -3,14 +3,17 @@ import './App.css';
 import * as requests from './requests';
 import Header from './components/Header';
 import ProductContainer from './components/ProductContainer';
+import ProductDetailModal from './components/ProductDetailModal';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
   const [activeCategoryId, setActiveCategoryId] = useState(0);
   const [products, setProducts] = useState([]);
   const [prices, setPrices] = useState({min: null, max: null});
-  const [activeProduct, setActiveProduct] = useState({});
   const [searchText, setSearchText] = useState('');
+  const [activeProductId, setActiveProductId] = useState(null);
+  const [activeProduct, setActiveProduct] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(
     () => {
@@ -38,36 +41,39 @@ export default function App() {
     [activeCategoryId, prices, searchText]
   );
 
+  useEffect(
+    () => {
+      requests.getProduct(activeProductId).then(product => {
+        setActiveProduct(product);
+      });
+    },
+    [activeProductId]
+  );
+
   const {name: categoryName} =
     categories.find(({id}) => id === activeCategoryId) || {};
 
   return (
-    <div className="product-listing">
-      <Header setSearchText={setSearchText} />
-      <ProductContainer
-        categories={categories}
-        products={products}
-        categoryName={categoryName}
-        setActiveCategoryId={setActiveCategoryId}
-        setPrices={setPrices}
-      />
-    </div>
+    <>
+      <div className="product-listing">
+        <Header setSearchText={setSearchText} />
+        <ProductContainer
+          categories={categories}
+          products={products}
+          categoryName={categoryName}
+          setActiveCategoryId={setActiveCategoryId}
+          setPrices={setPrices}
+          setActiveProductId={setActiveProductId}
+          setModalOpen={setModalOpen}
+        />
+      </div>
+      {modalOpen && activeProduct ? (
+        <ProductDetailModal
+          product={activeProduct}
+          setModalOpen={setModalOpen}
+          setActiveProduct={setActiveProduct}
+        />
+      ) : null}
+    </>
   );
 }
-
-/*
-  // Here as an example to get you started with requests.js
-
-  React.useEffect(() => {
-    (async () => {
-      const categories = await requests.getCategories();
-      const products = await requests.getProducts({
-        categoryId: categories[0].id,
-      });
-      const product = await requests.getProduct(products[0].id);
-      console.log('Example request: categories', categories);
-      console.log('Example request: products', products);
-      console.log('Example request: product', product);
-    })();
-  }, []);
-*/
