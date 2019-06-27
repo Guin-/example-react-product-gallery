@@ -66,14 +66,14 @@ export default function App() {
           setActiveProductId={setActiveProductId}
           setModalOpen={setModalOpen}
         />
+        {modalOpen && activeProduct ? (
+          <ProductDetailModal
+            product={activeProduct}
+            setModalOpen={setModalOpen}
+            setActiveProduct={setActiveProduct}
+          />
+        ) : null}
       </div>
-      {modalOpen && activeProduct ? (
-        <ProductDetailModal
-          product={activeProduct}
-          setModalOpen={setModalOpen}
-          setActiveProduct={setActiveProduct}
-        />
-      ) : null}
     </>
   );
 }
