@@ -11,10 +11,12 @@ export default function ProductDetailModal({
   };
 
   return (
-    <div>
-      <h2>{product.name}</h2>
-      <p>{product.description}</p>
-      <button onClick={handleClose}>Close</button>
+    <div className="modal-overlay">
+      <div className="modal">
+        <h2>{product.name}</h2>
+        <p>{product.description}</p>
+        <button onClick={handleClose}>Close</button>
+      </div>
     </div>
   );
 }
