@@ -7,7 +7,7 @@ const ProductCard = ({product, id, setActiveProductId, setModalOpen}) => {
   };
 
   return (
-    <div onClick={handleProductClick}>
+    <div className="product-card" onClick={handleProductClick}>
       {product.name} {product.price}
     </div>
   );
@@ -21,20 +21,19 @@ export default function Products({
   setModalOpen,
 }) {
   return (
-    <div className="product-list">
+    <div className="product-grid">
       <h2>{categoryName}</h2>
-      <ul>
+      <div className="product-list">
         {products.map(product => (
-          <li key={product.id}>
-            <ProductCard
-              product={product}
-              id={product.id}
-              setActiveProductId={setActiveProductId}
-              setModalOpen={setModalOpen}
-            />
-          </li>
+          <ProductCard
+            key={product.id}
+            product={product}
+            id={product.id}
+            setActiveProductId={setActiveProductId}
+            setModalOpen={setModalOpen}
+          />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

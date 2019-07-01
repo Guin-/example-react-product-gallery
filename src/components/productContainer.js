@@ -15,7 +15,7 @@ export default function ProductContainer({
 }) {
   return (
     <section className="product-container">
-      <div className="filter">
+      <div className="sidebar-filters">
         <Categories
           categories={categories}
           setActiveCategoryId={setActiveCategoryId}

@@ -55,7 +55,7 @@ export default function App() {
 
   return (
     <>
-      <div className="product-listing">
+      <div className="content-grid">
         <Header setSearchText={setSearchText} />
         <ProductContainer
           categories={categories}
