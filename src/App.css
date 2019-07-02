@@ -66,6 +66,26 @@ section {
   color: #f8cb00;
 }
 
+.price-filter input {
+  display: inline;
+  width: 50px;
+  height: 30px;
+  margin-right: 5px;
+  padding-left: 5px;
+}
+
+.price-filter input::placeholder {
+  padding-left: 5px;
+}
+
+.button-submit {
+  width: 85px;
+  height: 36px;
+  background-color: #f8cb00;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
 /*
  * Header
  */
