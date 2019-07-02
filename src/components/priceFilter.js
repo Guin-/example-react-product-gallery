@@ -10,9 +10,9 @@ export default function PriceFilter({setPrices}) {
   };
 
   return (
-    <div className="price-filter">
+    <div>
       <h3>Filter By Price</h3>
-      <form onSubmit={handleSubmit}>
+      <form className="price-filter" onSubmit={handleSubmit}>
         <input
           placeholder="$ Min"
           value={minValue || ''}
@@ -27,7 +27,9 @@ export default function PriceFilter({setPrices}) {
             setMaxValue(event.target.value);
           }}
         />
-        <button type="submit">Go</button>
+        <button className="button-submit" type="submit">
+          Go
+        </button>
       </form>
     </div>
   );
