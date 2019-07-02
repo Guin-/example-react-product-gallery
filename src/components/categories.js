@@ -1,21 +1,30 @@
 import React from 'react';
+import classNames from 'classnames';
 
-export default function Categories({categories, setActiveCategoryId}) {
+export default function Categories({
+  categories,
+  activeCategoryId,
+  setActiveCategoryId,
+}) {
   return (
     <div className="categories">
       <h3>All Categories</h3>
-      <ul>
+      <div>
         {categories.map(category => (
-          <li
+          <div
+            className={classNames({
+              category: true,
+              activeCategory: category.id == activeCategoryId,
+            })}
             key={category.id}
             onClick={() => {
               setActiveCategoryId(category.id);
             }}
           >
             {category.name}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
