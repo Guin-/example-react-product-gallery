@@ -61,6 +61,7 @@ export default function App() {
           categories={categories}
           products={products}
           categoryName={categoryName}
+          activeCategoryId={activeCategoryId}
           setActiveCategoryId={setActiveCategoryId}
           setPrices={setPrices}
           setActiveProductId={setActiveProductId}

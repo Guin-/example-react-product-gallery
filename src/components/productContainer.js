@@ -12,6 +12,7 @@ export default function ProductContainer({
   setActiveProductId,
   setModalOpen,
   categoryName,
+  activeCategoryId,
 }) {
   return (
     <section className="product-container">
@@ -19,6 +20,7 @@ export default function ProductContainer({
         <Categories
           categories={categories}
           setActiveCategoryId={setActiveCategoryId}
+          activeCategoryId={activeCategoryId}
         />
         <PriceFilter setPrices={setPrices} />
       </div>
