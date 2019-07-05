@@ -7,9 +7,15 @@ const ProductCard = ({product, id, setActiveProductId, setModalOpen}) => {
   };
 
   return (
-    <div className="product-card" onClick={handleProductClick}>
-      {product.name} {product.price}
-    </div>
+    <button className="product-card" onClick={handleProductClick}>
+      <img
+        className="product-card-image"
+        src={product.images.medium}
+        alt={product.name}
+      />
+      <p className="product-name">{product.name}</p>
+      <p className="product-price">${product.price}</p>
+    </button>
   );
 };
 
