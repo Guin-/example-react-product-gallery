@@ -147,9 +147,34 @@ h1 {
   border: 1px solid #e4e4e4;
   box-shadow: 0 4px 14px 7px rgba(121, 121, 121, 0.05);
   border-radius: 4px;
+  margin: 0 28px 28px 0;
   width: 191px;
   height: 352px;
-  margin: 0 28px 28px 0;
+}
+
+.product-card:hover {
+  border: none;
+  border: 2px solid #f8cb00;
+}
+
+.product-card-image {
+  padding: 20px 0;
+}
+
+.product-name {
+  font-family: SourceSansPro-Regular;
+  font-size: 18px;
+  color: #373738;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.product-price {
+  font-family: SourceSansPro-Semibold;
+  font-size: 20px;
+  color: #f8cb00;
+  letter-spacing: 0;
+  text-align: center;
 }
 
 /*
