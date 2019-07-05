@@ -204,3 +204,43 @@ h1 {
   min-height: 300px;
   margin: 0 25px;
 }
+
+.modal-content {
+  display: flex;
+  justify-content: space-around;
+  padding: 71px 20px;
+}
+
+.modal-content-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  font-size: 38px;
+  background-color: #fff;
+  border: none;
+}
+
+.modal-content-description {
+  padding-left: 50px;
+  padding-top: 30px;
+}
+
+.modal-content-title {
+  font-family: SourceSansPro-Regular;
+  font-size: 28px;
+  color: #373738;
+}
+
+.modal-content-price {
+  font-family: SourceSansPro-Bold;
+  font-size: 30px;
+  color: #f8cb00;
+}
+
+.modal-content-product-description {
+  font-family: SourceSansPro-Regular;
+  font-size: 16px;
+  color: #585858;
+  line-height: 30px;
+}
