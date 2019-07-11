@@ -4,10 +4,12 @@ export default function ProductDetailModal({
   product,
   setModalOpen,
   setActiveProduct,
+  setActiveProductId,
 }) {
   const handleClose = () => {
     setModalOpen(false);
     setActiveProduct(null);
+    setActiveProductId(null);
   };
 
   return (
