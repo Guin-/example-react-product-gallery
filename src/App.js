@@ -71,6 +71,7 @@ export default function App() {
           <ProductDetailModal
             product={activeProduct}
             setModalOpen={setModalOpen}
+            setActiveProductId={setActiveProductId}
             setActiveProduct={setActiveProduct}
           />
         ) : null}
