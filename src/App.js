@@ -35,6 +35,10 @@ export default function App() {
           searchText,
         })
         .then(products => {
+          products.map(
+            product =>
+              (product.price = Number.parseFloat(product.price).toFixed(2))
+          );
           setProducts(products);
         });
     },
