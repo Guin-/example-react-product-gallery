@@ -6,15 +6,12 @@ const ProductCard = ({product, id, setActiveProductId, setModalOpen}) => {
     setModalOpen(true);
   };
 
+  const {name, price, images} = product;
   return (
     <button className="product-card" onClick={handleProductClick}>
-      <img
-        className="product-card-image"
-        src={product.images.medium}
-        alt={product.name}
-      />
-      <p className="product-name">{product.name}</p>
-      <p className="product-price">${product.price}</p>
+      <img className="product-card-image" src={images.medium} alt={name} />
+      <p className="product-name">{name}</p>
+      <p className="product-price">${price.toFixed(2)}</p>
     </button>
   );
 };
