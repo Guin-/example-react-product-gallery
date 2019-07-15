@@ -12,6 +12,7 @@ export default function ProductDetailModal({
     setActiveProductId(null);
   };
 
+  const {name, price, images, description} = product;
   return (
     <div className="modal-overlay">
       <div className="modal">
@@ -20,14 +21,12 @@ export default function ProductDetailModal({
         </button>
         <div className="modal-content">
           <div className="modal-content-image">
-            <img src={product.images.large} alt={product.name} />
+            <img src={images.large} alt={name} />
           </div>
           <div className="modal-content-description">
-            <h2 className="modal-content-title">{product.name}</h2>
-            <h2 className="modal-content-price">${product.price}</h2>
-            <p className="modal-content-product-description">
-              {product.description}
-            </p>
+            <h2 className="modal-content-title">{name}</h2>
+            <h2 className="modal-content-price">${price.toFixed(2)}</h2>
+            <p className="modal-content-product-description">{description}</p>
           </div>
         </div>
       </div>
