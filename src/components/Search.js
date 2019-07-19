@@ -6,6 +6,7 @@ const Search = ({setSearchText}) => {
   const handleSubmit = event => {
     event.preventDefault();
     setSearchText(inputText);
+    setInputText('');
   };
 
   const handleChange = event => {
@@ -20,6 +21,7 @@ const Search = ({setSearchText}) => {
           className="search-form"
           placeholder="Search products by name"
           onChange={handleChange}
+          value={inputText}
         />
       </form>
     </div>

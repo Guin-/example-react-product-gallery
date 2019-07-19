@@ -30,6 +30,19 @@ export default function App() {
       requests
         .getProducts({
           categoryId: activeCategoryId,
+        })
+        .then(products => {
+          setProducts(products);
+        });
+    },
+    [activeCategoryId]
+  );
+
+  useEffect(
+    () => {
+      requests
+        .getProducts({
+          categoryId: activeCategoryId,
           minPrice: prices.min,
           maxPrice: prices.max,
           searchText,
@@ -38,7 +51,7 @@ export default function App() {
           setProducts(products);
         });
     },
-    [activeCategoryId, prices, searchText]
+    [prices, searchText]
   );
 
   useEffect(
