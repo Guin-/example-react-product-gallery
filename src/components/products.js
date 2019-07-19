@@ -26,17 +26,21 @@ export default function Products({
   return (
     <div className="product-grid">
       <h2>{categoryName}</h2>
-      <div className="product-list">
-        {products.map(product => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            id={product.id}
-            setActiveProductId={setActiveProductId}
-            setModalOpen={setModalOpen}
-          />
-        ))}
-      </div>
+      {products.length > 0 ? (
+        <div className="product-list">
+          {products.map(product => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              id={product.id}
+              setActiveProductId={setActiveProductId}
+              setModalOpen={setModalOpen}
+            />
+          ))}
+        </div>
+      ) : (
+        <h2>No items found...</h2>
+      )}
     </div>
   );
 }
