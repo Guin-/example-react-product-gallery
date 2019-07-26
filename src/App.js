@@ -1,29 +1,57 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import './App.css';
 import * as requests from './requests';
 import Header from './components/Header';
 import ProductContainer from './components/ProductContainer';
 import ProductDetailModal from './components/ProductDetailModal';
 
+const initialState = {
+  categories: [],
+  activeCategoryId: 0,
+  products: [],
+  prices: {min: null, max: null},
+  searchText: '',
+  activeProductId: null,
+  activeProduct: null,
+  modalOpen: false,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    // action types here and how they update state with new state object
+    case 'FETCH_CATEGORIES':
+      return {
+        ...state,
+        categories: action.categories,
+        activeCategoryId: action.categories[0].id,
+      };
+    case 'SELECT_CATEGORY':
+      return {...state, activeCategoryId: action.category.id};
+    default:
+      return state;
+  }
+}
+
 export default function App() {
-  const [categories, setCategories] = useState([]);
-  const [activeCategoryId, setActiveCategoryId] = useState(0);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const {categories, activeCategoryId} = state;
+
+  useEffect(
+    () => {
+      requests.getCategories().then(categories => {
+        dispatch({type: 'FETCH_CATEGORIES', categories});
+      });
+    },
+    [categories]
+  );
+
   const [products, setProducts] = useState([]);
   const [prices, setPrices] = useState({min: null, max: null});
   const [searchText, setSearchText] = useState('');
   const [activeProductId, setActiveProductId] = useState(null);
   const [activeProduct, setActiveProduct] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-
-  useEffect(
-    () => {
-      requests.getCategories().then(categories => {
-        setCategories(categories);
-        setActiveCategoryId(categories[0].id);
-      });
-    },
-    [categories]
-  );
 
   useEffect(
     () => {
@@ -51,7 +79,7 @@ export default function App() {
           setProducts(products);
         });
     },
-    [prices, searchText]
+    [activeCategoryId, prices, searchText]
   );
 
   useEffect(
@@ -75,7 +103,7 @@ export default function App() {
           products={products}
           categoryName={categoryName}
           activeCategoryId={activeCategoryId}
-          setActiveCategoryId={setActiveCategoryId}
+          dispatch={dispatch}
           setPrices={setPrices}
           setActiveProductId={setActiveProductId}
           setModalOpen={setModalOpen}
