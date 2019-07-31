@@ -1,14 +1,14 @@
 import React from 'react';
 
-const ProductCard = ({product, id, setActiveProductId, setModalOpen}) => {
-  const handleProductClick = () => {
-    setActiveProductId(id);
-    setModalOpen(true);
-  };
-
+const ProductCard = ({dispatch, product, id, setModalOpen}) => {
   const {name, price, images} = product;
   return (
-    <button className="product-card" onClick={handleProductClick}>
+    <button
+      className="product-card"
+      onClick={() => {
+        dispatch({type: 'SET_ACTIVE_PRODUCT_ID', id});
+      }}
+    >
       <img className="product-card-image" src={images.medium} alt={name} />
       <p className="product-name">{name}</p>
       <p className="product-price">${price.toFixed(2)}</p>
@@ -16,13 +16,7 @@ const ProductCard = ({product, id, setActiveProductId, setModalOpen}) => {
   );
 };
 
-export default function Products({
-  products,
-  activeCategoryId,
-  categoryName,
-  setActiveProductId,
-  setModalOpen,
-}) {
+export default function Products({products, dispatch, categoryName}) {
   return (
     <div className="product-grid">
       <h2>{categoryName}</h2>
@@ -33,8 +27,7 @@ export default function Products({
               key={product.id}
               product={product}
               id={product.id}
-              setActiveProductId={setActiveProductId}
-              setModalOpen={setModalOpen}
+              dispatch={dispatch}
             />
           ))}
         </div>

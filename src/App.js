@@ -27,6 +27,17 @@ function reducer(state, action) {
       };
     case 'SELECT_CATEGORY':
       return {...state, activeCategoryId: action.category.id};
+    case 'SET_ACTIVE_PRODUCT_ID':
+      return {...state, activeProductId: action.id, modalOpen: true};
+    case 'SET_ACTIVE_PRODUCT':
+      return {...state, activeProduct: action.product};
+    case 'CLOSE_MODAL_RESET_ACTIVE_PRODUCT':
+      return {
+        ...state,
+        activeProduct: null,
+        activeProductId: null,
+        modalOpen: false,
+      };
     default:
       return state;
   }
@@ -35,7 +46,13 @@ function reducer(state, action) {
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const {categories, activeCategoryId} = state;
+  const {
+    categories,
+    activeCategoryId,
+    activeProductId,
+    activeProduct,
+    modalOpen,
+  } = state;
 
   useEffect(
     () => {
@@ -49,9 +66,6 @@ export default function App() {
   const [products, setProducts] = useState([]);
   const [prices, setPrices] = useState({min: null, max: null});
   const [searchText, setSearchText] = useState('');
-  const [activeProductId, setActiveProductId] = useState(null);
-  const [activeProduct, setActiveProduct] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(
     () => {
@@ -85,7 +99,7 @@ export default function App() {
   useEffect(
     () => {
       requests.getProduct(activeProductId).then(product => {
-        setActiveProduct(product);
+        dispatch({type: 'SET_ACTIVE_PRODUCT', product});
       });
     },
     [activeProductId]
@@ -105,16 +119,9 @@ export default function App() {
           activeCategoryId={activeCategoryId}
           dispatch={dispatch}
           setPrices={setPrices}
-          setActiveProductId={setActiveProductId}
-          setModalOpen={setModalOpen}
         />
         {modalOpen && activeProduct ? (
-          <ProductDetailModal
-            product={activeProduct}
-            setModalOpen={setModalOpen}
-            setActiveProductId={setActiveProductId}
-            setActiveProduct={setActiveProduct}
-          />
+          <ProductDetailModal product={activeProduct} dispatch={dispatch} />
         ) : null}
       </div>
     </>

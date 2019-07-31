@@ -8,8 +8,6 @@ export default function ProductContainer({
   categories,
   products,
   setPrices,
-  setActiveProductId,
-  setModalOpen,
   categoryName,
   activeCategoryId,
   dispatch,
@@ -27,8 +25,7 @@ export default function ProductContainer({
       <Products
         products={products}
         categoryName={categoryName}
-        setActiveProductId={setActiveProductId}
-        setModalOpen={setModalOpen}
+        dispatch={dispatch}
       />
     </section>
   );

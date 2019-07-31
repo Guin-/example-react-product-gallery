@@ -1,22 +1,15 @@
 import React from 'react';
 
-export default function ProductDetailModal({
-  product,
-  setModalOpen,
-  setActiveProduct,
-  setActiveProductId,
-}) {
-  const handleClose = () => {
-    setModalOpen(false);
-    setActiveProduct(null);
-    setActiveProductId(null);
-  };
-
+export default function ProductDetailModal({product, dispatch}) {
   const {name, price, images, description} = product;
+
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <button className="modal-content-close" onClick={handleClose}>
+        <button
+          className="modal-content-close"
+          onClick={() => dispatch({type: 'CLOSE_MODAL_RESET_ACTIVE_PRODUCT'})}
+        >
           &times;
         </button>
         <div className="modal-content">
