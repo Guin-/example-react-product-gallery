@@ -38,6 +38,8 @@ function reducer(state, action) {
         activeProductId: null,
         modalOpen: false,
       };
+    case 'SET_PRODUCTS':
+      return {...state, products: action.products};
     default:
       return state;
   }
@@ -52,6 +54,7 @@ export default function App() {
     activeProductId,
     activeProduct,
     modalOpen,
+    products,
   } = state;
 
   useEffect(
@@ -63,7 +66,6 @@ export default function App() {
     [categories]
   );
 
-  const [products, setProducts] = useState([]);
   const [prices, setPrices] = useState({min: null, max: null});
   const [searchText, setSearchText] = useState('');
 
@@ -74,7 +76,7 @@ export default function App() {
           categoryId: activeCategoryId,
         })
         .then(products => {
-          setProducts(products);
+          dispatch({type: 'SET_PRODUCTS', products});
         });
     },
     [activeCategoryId]
@@ -90,7 +92,7 @@ export default function App() {
           searchText,
         })
         .then(products => {
-          setProducts(products);
+          dispatch({type: 'SET_PRODUCTS', products});
         });
     },
     [activeCategoryId, prices, searchText]
