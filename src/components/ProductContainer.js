@@ -7,19 +7,17 @@ import * as requests from '../requests';
 export default function ProductContainer({
   categories,
   products,
-  setActiveCategoryId,
   setPrices,
-  setActiveProductId,
-  setModalOpen,
   categoryName,
   activeCategoryId,
+  dispatch,
 }) {
   return (
     <section className="product-container">
       <div className="sidebar-filters">
         <Categories
           categories={categories}
-          setActiveCategoryId={setActiveCategoryId}
+          dispatch={dispatch}
           activeCategoryId={activeCategoryId}
         />
         <PriceFilter setPrices={setPrices} />
@@ -27,8 +25,7 @@ export default function ProductContainer({
       <Products
         products={products}
         categoryName={categoryName}
-        setActiveProductId={setActiveProductId}
-        setModalOpen={setModalOpen}
+        dispatch={dispatch}
       />
     </section>
   );

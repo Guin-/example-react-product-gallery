@@ -1,11 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export default function Categories({
-  categories,
-  activeCategoryId,
-  setActiveCategoryId,
-}) {
+export default function Categories({categories, activeCategoryId, dispatch}) {
   return (
     <div className="categories">
       <h3>All Categories</h3>
@@ -18,7 +14,7 @@ export default function Categories({
             })}
             key={category.id}
             onClick={() => {
-              setActiveCategoryId(category.id);
+              dispatch({type: 'SELECT_CATEGORY', category});
             }}
           >
             {category.name}

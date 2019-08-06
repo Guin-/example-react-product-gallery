@@ -1,29 +1,73 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import './App.css';
 import * as requests from './requests';
 import Header from './components/Header';
 import ProductContainer from './components/ProductContainer';
 import ProductDetailModal from './components/ProductDetailModal';
 
+const initialState = {
+  categories: [],
+  activeCategoryId: 0,
+  products: [],
+  prices: {min: null, max: null},
+  searchText: '',
+  activeProductId: null,
+  activeProduct: null,
+  modalOpen: false,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    // action types here and how they update state with new state object
+    case 'FETCH_CATEGORIES':
+      return {
+        ...state,
+        categories: action.categories,
+        activeCategoryId: action.categories[0].id,
+      };
+    case 'SELECT_CATEGORY':
+      return {...state, activeCategoryId: action.category.id};
+    case 'SET_ACTIVE_PRODUCT_ID':
+      return {...state, activeProductId: action.id, modalOpen: true};
+    case 'SET_ACTIVE_PRODUCT':
+      return {...state, activeProduct: action.product};
+    case 'CLOSE_MODAL_RESET_ACTIVE_PRODUCT':
+      return {
+        ...state,
+        activeProduct: null,
+        activeProductId: null,
+        modalOpen: false,
+      };
+    case 'SET_PRODUCTS':
+      return {...state, products: action.products};
+    default:
+      return state;
+  }
+}
+
 export default function App() {
-  const [categories, setCategories] = useState([]);
-  const [activeCategoryId, setActiveCategoryId] = useState(0);
-  const [products, setProducts] = useState([]);
-  const [prices, setPrices] = useState({min: null, max: null});
-  const [searchText, setSearchText] = useState('');
-  const [activeProductId, setActiveProductId] = useState(null);
-  const [activeProduct, setActiveProduct] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const {
+    categories,
+    activeCategoryId,
+    activeProductId,
+    activeProduct,
+    modalOpen,
+    products,
+  } = state;
 
   useEffect(
     () => {
       requests.getCategories().then(categories => {
-        setCategories(categories);
-        setActiveCategoryId(categories[0].id);
+        dispatch({type: 'FETCH_CATEGORIES', categories});
       });
     },
     [categories]
   );
+
+  const [prices, setPrices] = useState({min: null, max: null});
+  const [searchText, setSearchText] = useState('');
 
   useEffect(
     () => {
@@ -32,7 +76,7 @@ export default function App() {
           categoryId: activeCategoryId,
         })
         .then(products => {
-          setProducts(products);
+          dispatch({type: 'SET_PRODUCTS', products});
         });
     },
     [activeCategoryId]
@@ -48,16 +92,16 @@ export default function App() {
           searchText,
         })
         .then(products => {
-          setProducts(products);
+          dispatch({type: 'SET_PRODUCTS', products});
         });
     },
-    [prices, searchText]
+    [activeCategoryId, prices, searchText]
   );
 
   useEffect(
     () => {
       requests.getProduct(activeProductId).then(product => {
-        setActiveProduct(product);
+        dispatch({type: 'SET_ACTIVE_PRODUCT', product});
       });
     },
     [activeProductId]
@@ -75,18 +119,11 @@ export default function App() {
           products={products}
           categoryName={categoryName}
           activeCategoryId={activeCategoryId}
-          setActiveCategoryId={setActiveCategoryId}
+          dispatch={dispatch}
           setPrices={setPrices}
-          setActiveProductId={setActiveProductId}
-          setModalOpen={setModalOpen}
         />
         {modalOpen && activeProduct ? (
-          <ProductDetailModal
-            product={activeProduct}
-            setModalOpen={setModalOpen}
-            setActiveProductId={setActiveProductId}
-            setActiveProduct={setActiveProduct}
-          />
+          <ProductDetailModal product={activeProduct} dispatch={dispatch} />
         ) : null}
       </div>
     </>
