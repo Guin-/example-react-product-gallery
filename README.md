@@ -1,6 +1,6 @@
-_NOTE: To any who stumble onto this, this is sandbox project that I've been using to experiment with various Javascript and React-related goodies.
-It may or may not be live to play with in its current state at https://react-product-gallery.herokuapp.com/.
-The `master` branch reflects the starter template for the project intended as a take-home demo project. See `solution` for a completed implementation._
+_NOTE: This is a sandbox project starter cloned from @erikthedeveloper repo.
+I am building out this demo project as a way to experiment and play with new React API’s in a small isolated project.
+It’s current iteration is deployed at https://pensive-euclid-790551.netlify.com ._
 
 # React Product Gallery
 
